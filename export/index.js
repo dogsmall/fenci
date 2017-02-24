@@ -1,7 +1,7 @@
 var fs = require('fs')
 var xlsx = require('node-xlsx')
 
-var obj = xlsx.parse('5.xlsx');
+var obj = xlsx.parse('weixin5.xlsx');
 
 // console.log(obj);
 var s = []
@@ -55,23 +55,23 @@ var keywords = ["腾讯新闻",
 ]
 obj[0].data.map((x) => {
     // console.log(x)
-    x[0] = x[0].replace(/@腾讯/g, '').replace(/\(.*\)/g, '')
-    x[1] = x[1].replace(/@腾讯/g, '').replace(/\(.*\)/g, '')
+    // x[0] = x[0].replace(/@腾讯/g, '').replace(/\(.*\)/g, '')
+    // x[1] = x[1].replace(/@腾讯/g, '').replace(/\(.*\)/g, '')
 
     for (let i = 0; i < keywords.length; i++) {
-        x[0] = x[0].replace(new RegExp(keywords[i], 'g'), '')
-        x[1] = x[1].replace(new RegExp(keywords[i], 'g'), '')
-            // x[12] = x[12].replace(new RegExp(keywords[i], 'g'), '')
+        // x[0] = x[0].replace(new RegExp(keywords[i], 'g'), '')
+        // x[1] = x[1].replace(new RegExp(keywords[i], 'g'), '')
+        x[12] = x[12].replace(new RegExp(keywords[i], 'g'), '')
 
 
     }
-    if (x[0].indexOf("腾讯") != -1 || x[0].indexOf("鹅厂") != -1 || x[1].indexOf("腾讯") != -1 || x[1].indexOf("鹅厂") != -1) {
-        s.push(x)
-    }
-    // if (x[12].match(/(鹅厂|腾讯)/g) && x[12].match(/(鹅厂|腾讯)/g).length >= 3) {
-    //     console.log(x[12].match(/(鹅厂|腾讯)/g))
+    // if (x[0].indexOf("腾讯") != -1 || x[0].indexOf("鹅厂") != -1 || x[1].indexOf("腾讯") != -1 || x[1].indexOf("鹅厂") != -1) {
     //     s.push(x)
     // }
+    if (x[12].match(/(鹅厂|腾讯)/g) && x[12].match(/(鹅厂|腾讯)/g).length >= 3) {
+        console.log(x[12].match(/(鹅厂|腾讯)/g))
+        s.push(x)
+    }
 
 });
 
@@ -81,7 +81,7 @@ let buffer = xlsx.build([{
     data: s
 }]);
 
-fs.writeFile('weibo5.xlsx', buffer, {
+fs.writeFile('5.xlsx', buffer, {
     'flag': 'w+'
 }, function(err) {
     if (err) {
